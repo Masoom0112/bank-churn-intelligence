@@ -1,0 +1,441 @@
+Prompt_1 :
+
+Inspect the newly initialized repository.
+  Verify-
+	1. Current working directory.
+	2. Git initialization.
+	3. Remote origin configuration.
+	4. Existing project assets.
+	5. Whether any unexpected files are present.
+
+Do not modify any files. Report the repository state and any missing source assets.
+
+Prompt_2 :
+
+Inspect the generated .github/copilot-instructions.md. Improve it using verified information from the repository.
+Include:
+- Project purpose.
+- Existing dataset and data dictionary.
+- Existing notebook workflow.
+- Existing Power BI dashboard.
+- Python and Streamlit application stack.
+- Existing ML pipeline preservation.
+- Feature engineering consistency.
+- Testing expectations.
+- Security requirements.
+- File and module organization.
+Do not assume which model is final until you verify the notebook.Keep instructions concise and actionable.Do not implement application features.
+
+Prompt_3 :
+
+What repository instructions have you loaded?
+Explain how they influence:
+1. Code generation.
+2. File modification.
+3. Testing.
+4. Model integration.
+Also identify any important project information that is missing from the instructions.
+
+Prompt_4 :
+
+Create a specs directory containing four empty Markdown files:
+1. specs/requirements.md
+2. specs/architecture.md
+3. specs/implementation-plan.md
+4. specs/model-contract.md
+Do not create application source code. Show me the files you created. Review the file changes.
+
+Prompt_5 :
+
+We are extending the existing Bank Customer Churn Analysis and Prediction project. Inspect the actual project files. Develop the requirements specification for a Streamlit-based Bank Customer Churn Intelligence Platform. The application should contain:
+1. Customer Analytics.
+2. Individual Prediction.
+3. Batch Prediction.
+4. Model Explainability.
+5. Risk Segmentation and Retention Suggestions.
+For every feature include:
+- User story.
+- Inputs.
+- Expected outputs.
+- Functional requirements.
+- Non-functional requirements.
+- Error cases.
+- Acceptance criteria.
+Distinguish historical analytics from model predictions. Do not invent model metrics or claim that risk suggestions are causal. Write only specs/requirements.md. Do not implement the application. Review the plan before allowing the file to be written.
+
+Prompt_6 :
+
+Now create the technical architecture specification. Inspect the actual ML notebook and dataset structure.
+Define:
+- Data loading layer.
+- Feature engineering layer.
+- Fitted preprocessing layer.
+- Model inference layer.
+- Streamlit interface.
+- Explainability layer.
+- Risk segmentation layer.
+- Testing layer.
+Define the responsibilities of each module.
+Include:
+- Data flow.
+- Prediction flow.
+- Model loading strategy.
+- Input/output schemas.
+- Error handling.
+- Dependency relationships.
+Do not assume the final model or its threshold. Verify them from the notebook. Write only specs/architecture.md. Do not implement code.
+
+Prompt_7 :
+
+Inspect the notebook's final model selection and prediction pipeline. Document the actual verified information:
+- Raw input columns.
+- Target column.
+- Feature engineering formulas.
+- Preprocessing operations.
+- Categorical feature handling.
+- Numerical feature handling.
+- Selected estimator.
+- Fitted pipeline availability.
+- Selected threshold.
+- Prediction output format.
+Identify any missing or ambiguous information. Write specs/model-contract.md. Do not export or retrain the model.
+
+Prompt_8 :
+
+Create the implementation plan based on the approved requirements,
+architecture, and model contract. Break the work into small independent tasks.
+For each task define:
+- Task ID.
+- Description.
+- Files affected.
+- Dependencies.
+- Responsible specialist.
+- Acceptance criteria.
+- Verification command.
+Identify which tasks can run concurrently and which require sequential execution. Pay special attention to model packaging and inference consistency. Write only specs/implementation-plan.md. Do not implement application features.
+
+Prompt_9 :
+
+Review all four specification documents.
+Find:
+- Contradictions.
+- Missing requirements.
+- Unclear interfaces.
+- Incorrect assumptions.
+- Tasks with overlapping file ownership.
+- Dependencies that prevent parallel execution.
+Do not edit anything yet. Present the findings. Discuss the findings, then approve any corrections.
+
+Prompt_10 :
+
+Prompt:
+Create a repository-level GitHub Copilot CLI skill named validate-changes.
+Location:
+.github/skills/validate-changes/SKILL.md
+The skill should:
+1. Inspect the Git diff.
+2. Identify changed files.
+3. Check imports and syntax.
+4. Identify relevant tests.
+5. Run targeted tests.
+6. Run the complete test suite when appropriate.
+7. Report actual test results.
+8. Identify unresolved risks.
+9. Never claim a test passed without executing it.
+10. Never commit or push automatically.
+Include proper YAML frontmatter with:
+- name
+- description
+- user-invocable
+Keep the skill reusable across Python and Streamlit modules. Do not modify application code.
+
+Prompt_11 :
+
+Create another project-level skill:
+.github/skills/model-audit/SKILL.md
+Its purpose is to audit the existing machine learning pipeline.
+It should inspect:
+- Training-time features.
+- Feature engineering.
+- Preprocessing.
+- Model artifact.
+- Model input schema.
+- Threshold.
+- Prediction consistency.
+It must distinguish verified information from assumptions. It must never retrain or replace the selected model without explicit approval. Make it manually invocable as /model-audit. Do not modify application code.
+
+Prompt_12 :
+
+Name: ml-engineer
+Description: 
+Specialist responsible for machine learning model packaging, feature engineering, inference and prediction testing. 
+Instructions:
+You are the ML Engineer for the Bank Customer Churn Intelligence Platform.
+Your responsibilities:
+- Inspect the original notebook.
+- Verify the final selected model.
+- Reproduce training-time feature engineering.
+- Preserve fitted preprocessing.
+- Implement reusable model loading.
+- Implement individual prediction.
+- Implement batch prediction.
+- Add model-related tests.
+Rules:
+- Never invent a model or threshold.
+- Never train on test data.
+- Never change feature definitions without approval.
+- Never silently change the prediction threshold.
+- Do not modify Streamlit pages.
+- Follow specs/model-contract.md.
+- Report every file modified and every test executed.
+Use include-custom-instructions where supported so repository conventions are applied when delegated as a subagent.
+
+Prompt_13 :
+
+Create:
+frontend-engineer
+Description:
+Specialist responsible for Streamlit pages, user interaction, visualization and frontend integration.
+Instructions:
+You are the Frontend Engineer for the Bank Customer Churn Intelligence Platform.
+Your responsibilities:
+- Build the Streamlit application shell.
+- Implement navigation.
+- Create customer analytics.
+- Create individual prediction UI.
+- Create batch prediction UI.
+- Integrate with the approved backend interface.
+Rules:
+- Do not implement or duplicate ML model logic.
+- Do not create fake predictions.
+- Follow specs/requirements.md.
+- Follow specs/architecture.md.
+- Use only agreed backend interfaces.
+- Keep UI and business logic separate.
+- Add useful input validation and error messages.
+- Report files changed and tests performed.
+
+Prompt_14 :
+
+Create:
+qa-engineer
+Description:
+Specialist responsible for testing, validation, explainability and integration quality.
+Instructions:
+You are the QA Engineer for the Bank Customer Churn Intelligence Platform.
+Your responsibilities:
+- Design tests.
+- Verify model inference behavior.
+- Investigate SHAP compatibility.
+- Review feature-name mapping.
+- Validate input handling.
+- Test batch prediction.
+- Review integration risks.
+- Audit error handling.
+Rules:
+- Do not invent test results.
+- Do not fabricate SHAP explanations.
+- Do not modify ML model logic without approval.
+- Do not modify frontend files unless explicitly assigned.
+- Report reproducible failures and severity.
+
+Prompt_15 :
+
+Show me the available GitHub MCP tools.
+Explain which tools can:
+- Read repository files.
+- Search code.
+- Inspect issues.
+- Inspect pull requests.
+- Inspect commits.
+- Inspect GitHub Actions.
+Do not modify anything.
+
+Prompt_16 :
+
+Use the Context7 MCP server to retrieve current Streamlit documentation for file upload and CSV download. Compare the documentation with the planned batch prediction requirements.
+Tell me:
+- Relevant APIs.
+- Supported parameters.
+- Important limitations.
+- Recommended implementation approach.
+Do not modify files.
+
+Prompt_17 :
+
+Create a repository-level Copilot CLI hook configuration.
+File:
+.github/hooks/quality-check.json
+Use the documented version 1 hook schema. Implement a postToolUse hook that runs the Python test suite after the agent uses a relevant file-editing tool.
+Requirements:
+- Restrict the matcher to relevant edit or create tools where supported.
+- Use a short timeout.
+- Use python -m pytest -q.
+- Include both bash and powershell command definitions for portability.
+- Do not automatically approve or deny tools.
+- Do not delete files.
+- Do not run tests after read-only operations.
+- Document exactly when the hook runs.
+Do not modify application code.
+
+Prompt_18 :
+
+list the plugin-provided skills, tools or agents and explain what the installed plugin contributes. Do not claim that the plugin has capabilities it does not actually expose.
+
+Prompt_19 :
+
+Read:
+- specs/requirements.md
+- specs/architecture.md
+- specs/implementation-plan.md
+- specs/model-contract.md
+Summarize the critical path.
+Identify:
+1. Tasks that must be completed first.
+2. Tasks that can be parallelized.
+3. The agreed interfaces.
+4. Files owned by each specialist.
+5. Integration risks.
+Do not modify files.
+
+Prompt_20 :
+
+Ask:
+Define the exact backend interface for the Streamlit frontend.
+Specify:
+- Function names.
+- Input types.
+- Output types.
+- Required columns.
+- Error behavior.
+- Probability output.
+- Threshold handling.
+Document it in specs/architecture.md. Do not implement the backend.
+
+Prompt_21 :
+
+Use the available specialist agents to perform these independent tasks.
+Task A — ML Engineer:
+Inspect the original notebook and implement the model packaging and inference layer, following specs/model-contract.md.
+Task B — Frontend Engineer:
+Build the Streamlit application shell and Customer Analytics page. Use the agreed interface contract. Do not invent model functions.
+Task C — QA Engineer:
+Create test cases for model input validation, batch CSV validation, and application integration. Investigate SHAP compatibility separately.
+File ownership:
+ML Engineer owns src/preprocessing.py, src/prediction.py and models/.
+Frontend Engineer owns app.py and pages/.
+QA Engineer owns tests/ and src/explainability.py only if the ML interface is established.
+Do not let agents modify the same files. If a task depends on an unfinished interface, report the dependency instead of inventing one.
+Each agent must report:
+- Files changed.
+- Decisions made.
+- Tests run.
+- Unresolved issues.
+The main agent must coordinate integration.
+
+Prompt_22 :
+
+Summarize the work returned by each specialist.
+Identify:
+- Conflicting interfaces.
+- Missing files.
+- Incomplete acceptance criteria.
+- Tests not executed.
+- Tasks that need additional work.
+Do not integrate yet.
+
+Prompt_23 :
+
+Only after the interface has been verified:
+Integrate the frontend with the actual ML backend.
+Verify that:
+- Individual prediction uses the real selected model.
+- Batch prediction uses the same preprocessing.
+- The correct threshold is applied.
+- Model loading is not repeated unnecessarily.
+- Errors are handled visibly.
+Do not create fallback random predictions. Run targeted tests and report actual results.
+
+Prompt_24 :
+
+Implement the batch prediction page only. Use the approved backend interface.
+Requirements:
+- CSV upload.
+- Required-column validation.
+- Data-type validation.
+- Missing-value handling.
+- Batch inference.
+- Probability output.
+- Threshold-based class output.
+- Risk categorization.
+- Downloadable CSV.
+Do not duplicate feature engineering. Do not retrain the model. Do not modify the analytics page. Add tests for empty CSV, missing columns, invalid values and valid multiple-customer input.
+
+
+Prompt_25 :
+
+Investigate SHAP compatibility with the actual selected model and preprocessing pipeline. First inspect the model artifact and fitted pipeline.
+Determine:
+- Whether TreeExplainer is suitable.
+- Whether KernelExplainer or another approach is necessary.
+- How transformed features map back to original features.
+- Whether individual and global explanations are reliable.
+Do not implement SHAP until compatibility is established. If feasible, implement the explanation module and tests. If not feasible within the current pipeline, document the limitation and propose an honest alternative. Do not fabricate feature contributions.
+
+Prompt_26 :
+
+Implement customer risk segmentation and retention suggestions. Use the actual churn probability returned by the backend. Define configurable low, medium and high risk bands. Keep thresholds documented and separate from the classifier's decision threshold. Create transparent rule-based suggestions. Do not claim that the suggestions are proven to reduce churn. Add tests for probability boundaries and invalid values.
+Modify only:
+- src/segmentation.py
+- src/recommendations.py
+- Relevant tests
+
+Prompt_27 :
+
+Use file references:
+@specs/requirements.md
+@specs/architecture.md
+@specs/model-contract.md
+Using only the relevant project specifications, summarize the current application architecture and identify what remains incomplete.
+
+Prompt_28 :
+
+Analyze the failing tests.
+For each failure:
+1. Identify the root cause.
+2. Identify the responsible module.
+3. Explain whether it is an implementation bug,
+   environment problem or incorrect test.
+4. Propose the smallest safe fix.
+Do not change unrelated files.
+
+Prompt_29 :
+
+Critically review the current application architecture and integration.
+Look for:
+- Data leakage.
+- Training/inference mismatch.
+- Incorrect threshold handling.
+- Unreliable explainability.
+- Missing validation.
+- Fragile model loading.
+- Unnecessary complexity.
+Do not modify code. Give me a prioritized critique.
+
+Prompt_30 :
+
+Update the README to document the completed Bank Customer Churn Intelligence Platform.
+Include:
+- Project overview.
+- Existing Power BI dashboard.
+- ML workflow.
+- Application architecture.
+- Installation.
+- Execution.
+- Individual prediction.
+- Batch prediction.
+- Model explainability limitations.
+- Risk categorization.
+- Testing instructions.
+- Repository structure.
+Only describe features that are actually implemented and verified. Do not invent metrics or screenshots.
